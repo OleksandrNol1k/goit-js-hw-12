@@ -4,9 +4,12 @@ import iziToast from "izitoast/dist/js/iziToast.min.js";
 import "izitoast/dist/css/iziToast.min.css";
 
 const gallery = document.querySelector(".gallery");
-let lightbox = new SimpleLightbox(".gallery a");
+let lightbox = new SimpleLightbox(".gallery a", {
+  captionsData: "alt",
+  captionDelay: 250,
+});
 
-export function renderGallery(images) {
+export function createGallery(images) {
     if (images.length === 0) {
         iziToast.error({
             title: "Error",
