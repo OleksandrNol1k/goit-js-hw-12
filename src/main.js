@@ -56,7 +56,6 @@ form.addEventListener("submit", async (event) => {
 });
 
 loadMoreBtn.addEventListener("click", async () => {
-    if (totalLoaded >= totalHits) return;
     page += 1;
     showLoader();
     try {
