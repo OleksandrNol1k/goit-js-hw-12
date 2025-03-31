@@ -7,7 +7,7 @@ const loadMoreBtn = document.querySelector(".load-more");
 const loader = document.querySelector(".loader");
 const per_page = 15;
 let page = 1;
-let query = '';
+let query = "";
 let totalHits = 0;
 let totalLoaded = 0;
 
@@ -29,7 +29,10 @@ hideLoadMoreButton();
 form.addEventListener("submit", async (event) => {
     event.preventDefault();
     query = event.target.elements["search-text"].value.trim();
-    if (!query) return;
+    if (!query) {
+        iziToast.error({ title: "Error", message: "Enter a search query", position: "topRight" });
+        return;
+    }
     clearGallery();
     page = 1;
     totalLoaded = 0;
@@ -41,7 +44,7 @@ form.addEventListener("submit", async (event) => {
         createGallery(data.hits);
         totalLoaded += data.hits.length;
         event.target.reset();
-        if (data.hits.lenght > 15 && totalLoaded < totalHits) {
+        if (data.hits.length > 0 && totalLoaded < totalHits) {
             showLoadMoreButton();
         }
     } catch {
@@ -53,7 +56,7 @@ form.addEventListener("submit", async (event) => {
 });
 
 loadMoreBtn.addEventListener("click", async () => {
-    if (totalLoaded = totalHits) return;
+    if (totalLoaded >= totalHits) return;
     page += 1;
     showLoader();
     try {
